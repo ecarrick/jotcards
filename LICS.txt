@@ -1,0 +1,1 @@
+simple.carousel Tobias Zeising MIT https://github.com/SSilence/simple.carousel

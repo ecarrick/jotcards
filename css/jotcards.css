@@ -1,0 +1,24 @@
+.navbar-fixed-top{
+	padding: 5px;
+}
+
+#content {
+	margin-top: 80px;
+}
+
+#newCards{
+	margin: 20px;
+}
+
+.card{
+	margin-top: 10px;
+}
+
+#createSetBtns{
+	margin: 20px;
+	padding: 10px;
+}
+
+#setContainer{
+	list-style-type: none;
+}

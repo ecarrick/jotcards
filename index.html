@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JotCards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/jotcards.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+		    <button type="button" class="loginButton navbar-btn navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			  <span class=".glyphicon .glyphicon-log-in"></span>
+			</button>
+          <a class="navbar-brand" href="#">JotCards</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <button class="loginButton btn navbar-btn btn-normal navbar-right">Sign in</button>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+      <div id="content" class="well container">
+      </div>
+
+	
+	<script id="homePage" type="text/html">
+		<h1>JotCard Info! </h1>
+	</script>
+	
+	<script id="mainPage" type="text/html">
+		<div id="mainPageContent">
+			<div class="clearFix col-md-12 col-sm-12">
+				<button id="createSet" class="btn-lg btn-success  btn-block	">Create Set</button>
+			</div>
+			<div id="" col-md-offset-2>
+				<h3>Your Sets:</h3>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th> Name </th> <th> Set </th>
+						</tr>
+					</thead>
+					<tbody id="setList">
+						<% _.each(sets, function(cardSet) { %>
+							<tr>
+								<td><%= cardSet.answers["1"].answer %></td>
+								<td><button class="cardSetBtn btn btn-info btn-block" set-id="<%= cardSet.id  %>">Review</button></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+	</script>
+	
+	<script id="createPage" type="text/html">
+		<div id="createPageContent">
+			<form role="form">
+			  <div class="form-group">
+				<button id="cancelCreate" class="btn btn-warning">Cancel</button>
+			  </div>
+			  <div class="form-group">
+				<label for="setName">Set Name</label>
+				<input type="text" class="form-control" id="setName" placeholder="Bio Vocab Ch 2">
+			  </div>
+			  <div class="form-group">
+				<label for="setDesc">Set Description</label>
+				<textarea class="form-control" id="setDesc" rows="2"></textarea>
+			  </div>
+			  <div id="newCards" class="form-group">
+			  <h3 class="text-center">Cards</h3>
+				<div id="card_list" class="form-inline">
+				
+					
+				</div>
+			  </div>
+			  <div id="createSetBtns" class="form-group">
+					<button id="addCardBtn" class="btn btn-success  btn-block">Add Card</button>
+					<br>
+					<hr>
+					<button id="addCardSubmit" class="btn btn-default  btn-block	">Create</button>
+			  </div>
+			</form>
+		
+		</div>
+	</script>
+	
+	<script id="cardTpl" type="text/html">
+					<div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12 clearfix">
+						<div class="form-group col-md-6 col-sm-6 col-xs-6 col-lg-6 ">
+							<input type="text" class="form-control left" card-number="<%= count %>">
+						</div>
+						<div class="form-group col-md-6 col-sm-6 col-xs-6 col-lg-6">
+							<input type="text" class="form-control right" card-number="<%= count %>">
+						</div>
+					</div> <!--/Card Div -->
+	</script>
+	
+	<script id="setPage" type="text/html">
+		<div id="setPageContent">
+				<button id="cancelSet" class="btn btn-warning">Back</button>
+			<h2><%= title %></h2>
+			<h4><%=desc %></h4>
+			<div class="well">
+				<ul id="setContainer" class="text-center">
+							<% _.each(cards, function(card) { %>
+								<li>
+									<%= card.left%>
+									<br>
+									<%= card.right%>
+								</li>
+							<% }); %>
+				
+				</ul>
+			</div>
+			<span id="prev">Prev</span>
+
+			<span id="next">Next</span>
+			
+		</div>
+	</script>
+	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/simple.carousel.js"></script>
+    <!--<script src="//code.jquery.com/jquery.js"></script>-->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/underscore.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/JotForm.js"></script>
+	<script src="js/jc.js"></script>
+
+    <script src="js/kickoff.js"></script>
+	
+  </body>
+</html>
