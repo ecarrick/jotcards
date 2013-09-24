@@ -199,11 +199,67 @@ jc.checkForm = function(){
 */
 jc.createBaseForm = function(){
 	console.log("createBaseForm");
-	JF.cloneForm('32538916946164', function(response){
-			 console.log(response);
-			 jc.formid = response.id;
-			 jc.renameForm(jc.formid);
+	var form = new Object();
+	form.questions = new Object();
+	form.properties = new Object();
+	
+	form.properties['title'] = "JotCardBackendForm";
+	
+	form.questions['1'] = new Object();
+	form.questions['1']['type'] = 'control_textbox';
+	form.questions['1']['text'] = 'name';
+	form.questions['1']['order']= '1';
+	form.questions['1']['name'] = 'setTitle';
+	
+	form.questions['2'] = new Object();
+	form.questions['2']['type'] = 'control_textarea';
+	form.questions['2']['text'] = 'desc';
+	form.questions['2']['order']= '2';
+	form.questions['2']['name'] = 'setDesc';
+	
+	form.questions['3'] = new Object();
+	form.questions['3']['type'] = 'control_textarea';
+	form.questions['3']['text'] = 'data';
+	form.questions['3']['order']= '3';
+	form.questions['3']['name'] = 'setData';
+	
+	console.log(form);
+	
+ 	$.ajax({  
+	  type: "POST",  
+	  dataType: "json",
+	  url: "http://api.jtoform.com/user/forms?apiKey="+jc.apikey,  
+	  data: {"properties[title]"	:	"JotCardBackendForm",
+			 "questions[1][type]"	: 'control_textbox',
+			 "questions[1][text]"	: 'name',
+			 "questions[1][order]"	: '1',
+			 "questions[1][name]"	: 'setTitle',
+			 "questions[2][type]"	: 'control_textarea',
+			 "questions[2][text]"	: 'desc',
+			 "questions[2][order]"	: '2',
+			 "questions[2][name]"	: 'setDesc',
+			 "questions[3][type]"	: 'control_textarea',
+			 "questions[3][text]"	: 'data',
+			 "questions[3][order]"	: '3',
+			 "questions[3][name]"	: 'setData'
+			}, 
+	  success: function(response) { 
+		console.log(response);
+
+	  }
+	}
+	);
+	
+/* 	JF.createForm(form, function(response){
+		console.log(response);
+	
 	});
+ */
+	// JF.cloneForm('32538916946164', function(response){
+			 // console.log(response);
+			 // jc.formid = response.id;
+			 // jc.renameForm(jc.formid);
+	// });
 };
 
 
