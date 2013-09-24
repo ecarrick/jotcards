@@ -56,7 +56,12 @@
 						<% _.each(sets, function(cardSet) { %>
 							<tr>
 								<td><%= cardSet.answers["1"].answer %></td>
-								<td><button class="cardSetBtn btn btn-info btn-block" set-id="<%= cardSet.id  %>">Review</button></td>
+								<% if(cardSet.id !== "0"){ %>
+									<td><button class="cardSetBtn btn btn-info btn-block" set-id="<%= cardSet.id %>">Review</button></td>
+								<% }else{ %>
+									<td> </td>
+								<% }%>
+
 							</tr>
 						<% }); %>
 					</tbody>
@@ -141,7 +146,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/underscore.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<script src="js/JotForm.js"></script>
+	<script src="http://js.jotform.com/JotForm.js"></script>
 	<script src="js/jc.js"></script>
 
     <script src="js/kickoff.js"></script>

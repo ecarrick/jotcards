@@ -40,7 +40,16 @@ jc.showMainPage = function(){
 	JF.getFormSubmissions(jc.formid, function(response){
 		console.log(response);
 		jc.sets = response;
-		var page = _.template($("#mainPage").html(), {sets: response} );
+		if(response[0].answers){
+			var page = _.template($("#mainPage").html(), {sets: response} );
+		} else{
+			var noCards = [{
+							answers:{"1":{answer: "No cards yet!"}},
+							id: "0"
+						  }];
+				console.log(noCards);
+			var page = _.template($("#mainPage").html(), {sets: noCards} );
+		}
 		
 		jc.$main.html( page );
 		
@@ -74,6 +83,13 @@ jc.showCreatePage = function(){
 		jc.removeE("#createPageContent");
 		jc.showMainPage();
 	
+	});
+	
+	$(".right").on('keypress', function(e){
+		if(e.which == 0){
+			jc.newCard();
+		
+		};
 	});
 	
 	$("#addCardSubmit").on('click', function(e){
@@ -142,7 +158,7 @@ jc.newCard = function(){
 	
 	$("#card_list").append(newCard);
 	
-		
+	$("[card-number='"+jc.newCards+"'].left").focus();		
 };
 
 jc.createSet = function(cardSet){
@@ -228,7 +244,7 @@ jc.createBaseForm = function(){
  	$.ajax({  
 	  type: "POST",  
 	  dataType: "json",
-	  url: "http://api.jtoform.com/user/forms?apiKey="+jc.apikey,  
+	  url: "http://api.jotform.com/user/forms?apiKey="+jc.apikey,  
 	  data: {"properties[title]"	:	"JotCardBackendForm",
 			 "questions[1][type]"	: 'control_textbox',
 			 "questions[1][text]"	: 'name',
@@ -245,7 +261,8 @@ jc.createBaseForm = function(){
 			}, 
 	  success: function(response) { 
 		console.log(response);
-
+		 jc.formid = response.id;
+		 jc.renameForm(jc.formid);
 	  }
 	}
 	);
