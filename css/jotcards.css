@@ -68,6 +68,7 @@ padding: 5px;
 }
 .cardContent{
 	position: relative;
+	width: 95%;
 	margin-left: auto;
 	margin-right: auto;
 	word-wrap: break-word;
