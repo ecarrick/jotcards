@@ -7,6 +7,17 @@ jc.newCards = 0;
 jc.$main = $("#content");
 jc.otherSide = "back";
 
+jc.escape =  function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ };
+
+
+
 jc.init = function(ready){
 	console.log("init");
 	if(!ready){
@@ -97,15 +108,15 @@ jc.showCreatePage = function(){
 		e.preventDefault();
 		var cardSet = {};
 		
-		cardSet.name	= $("#setName").text();
-		cardSet.desc  	= $("#setDesc").text();
+		cardSet.name	= jc.escape($("#setName").text());
+		cardSet.desc  	= jc.escape($("#setDesc").text());
 		cardSet.cards  	= '';
 		var cards = [];
 		$("#card_list").children().each( function( key, card ){
 //			console.log( $(" .left ", this).val() + " : " + $(" .right ", this).val());
 				var card = {};
-				card.left   = $(" .left ", this).text();
-				card.right = $(" .right ", this).text();
+				card.left   = jc.escape($(" .left ", this).text());
+				card.right = jc.escape($(" .right ", this).text());
 				cards.push(card);
 			
 			
