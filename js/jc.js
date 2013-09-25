@@ -153,11 +153,15 @@ jc.showSetPage = function(setid){
             });
 	
 	$("#NavRight").on('click', function(e){
-		jc.showCard(jc.otherSide);
+		if(jc.otherSide == "front"){
+			jc.showCard(jc.otherSide);
+		}
 	});
 	
 	$("#NavLeft").on('click', function(e){
-		jc.showCard(jc.otherSide);
+		if(jc.otherSide == "front"){
+			jc.showCard(jc.otherSide);
+		}
 	});
 	
 	$("#cancelSet").on('click', function(e){
