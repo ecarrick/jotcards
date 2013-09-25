@@ -5,6 +5,7 @@ jc.sets = [];
 jc.apikey = '';
 jc.newCards = 0;
 jc.$main = $("#content");
+jc.otherSide = "back";
 
 jc.init = function(ready){
 	console.log("init");
@@ -38,7 +39,7 @@ jc.showHomePage = function(homeid){
 
 jc.showMainPage = function(){
 	JF.getFormSubmissions(jc.formid, function(response){
-		console.log(response);
+		//console.log(response);
 		jc.sets = response;
 		if(response[0].answers){
 			var page = _.template($("#mainPage").html(), {sets: response} );
@@ -63,6 +64,12 @@ jc.showMainPage = function(){
 			var setid = $(this).attr('set-id');
 			jc.showSetPage(setid);
 		});
+		$(".cardSetDel").on('click' , function(e){
+			e.preventDefault();
+			var setid = $(this).attr('set-id');
+			jc.deleteSet(setid);
+		});
+		
 	});
 };
 
@@ -85,12 +92,6 @@ jc.showCreatePage = function(){
 	
 	});
 	
-	$(".right").on('keypress', function(e){
-		if(e.which == 0){
-			jc.newCard();
-		
-		};
-	});
 	
 	$("#addCardSubmit").on('click', function(e){
 		e.preventDefault();
@@ -133,12 +134,13 @@ jc.showSetPage = function(setid){
 							 cards: setCards}
 							 );
 	 jc.$main.html(page);
+	 var cardW = $(window).width()*0.35;
 	 $("ul#setContainer").simplecarousel({
-                width:400,
-                height:200,
+                width:cardW,
+                height:350,
                 visible: 1,
-                next: $('#next'),
-                prev: $('#prev')
+                next: $('#NavRight'),
+                prev: $('#NavLeft')
             });
 			
 	$("#cancelSet").on('click', function(e){
@@ -148,21 +150,62 @@ jc.showSetPage = function(setid){
 		jc.showMainPage();
 	
 	});
+	
+	$("#cardArea .well li").on('click', function(e){
+			jc.showCard(jc.otherSide);
+	
+	});
 
 };
 
+jc.showCard = function(side){
+	if(side == 'front'){
+		$('.cardBack').fadeOut(1);
+		$('.cardFront').fadeIn(200);
+		jc.otherSide="back";
+	}
+	if(side == 'back'){
+		$('.cardFront').fadeOut(1);
+		$('.cardBack').fadeIn(200);
+		jc.otherSide="front";
+	}
+
+
+};
 
 jc.newCard = function(){
+	$(".right").off();
 	jc.newCards++;
 	var newCard = _.template( $("#cardTpl").html(), {count: jc.newCards} );
 	
 	$("#card_list").append(newCard);
+	if(jc.newCards == 1){
+		$("#setName").focus();
+	}else{
+		var number = jc.newCards-1;
+		$("[right-number='"+number+"']").focus();		
+	}
 	
-	$("[card-number='"+jc.newCards+"'].left").focus();		
+	$(".right").on('keypress', function(e){
+		if(e.which == 0){
+			//e.preventDefualt();
+			jc.newCard();
+		};
+	});
+};
+
+jc.deleteSet = function(setid){
+	
+	JF.deleteSubmission(setid, function(response){
+		jc.removeE("#mainPageContent");
+		jc.showMainPage();
+	})
+
 };
 
 jc.createSet = function(cardSet){
 	console.log('createSet');
+	jc.newCards=0;
 	var submission = {};
 	
 	submission['1'] = cardSet.name;
@@ -203,16 +246,6 @@ jc.checkForm = function(){
 };
 
 
-
-
-/*
-
-
-		MAJOR BUG, CLONE DOES NOT WORK WITH EXTERNAL USER
-		NEED NEW METHOD
-
-
-*/
 jc.createBaseForm = function(){
 	console.log("createBaseForm");
 	var form = new Object();
@@ -262,32 +295,8 @@ jc.createBaseForm = function(){
 	  success: function(response) { 
 		console.log(response);
 		 jc.formid = response.id;
-		 jc.renameForm(jc.formid);
 	  }
 	}
 	);
 	
-/* 	JF.createForm(form, function(response){
-		console.log(response);
-	
-	});
- */
-	// JF.cloneForm('32538916946164', function(response){
-			 // console.log(response);
-			 // jc.formid = response.id;
-			 // jc.renameForm(jc.formid);
-	// });
-};
-
-
-jc.renameForm = function(formid){
-	console.log("renameForm");
-	JF.setFormProperties(formid, {title: "JotCardBackendForm", pagetitle: "JotCardBackendForm"},
-		function success(){
-			 jc.init(true);
-		
-		},
-		function error(){}
-		);
-
 };

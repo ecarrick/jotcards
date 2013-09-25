@@ -2,6 +2,18 @@
 	padding: 5px;
 }
 
+.loginButton{
+	margin-right: 5px;
+}
+
+.navbar-header{
+	width: 100%;
+}
+
+.navbar-header h1{
+	display: inline;
+}
+
 #content {
 	margin-top: 80px;
 }
@@ -21,4 +33,35 @@
 
 #setContainer{
 	list-style-type: none;
+	padding: 0px;
 }
+
+#setPageContent .well{
+background-color: #EFEFEF;
+padding: 5px;
+
+}
+
+#NavRight, #NavLeft {
+	vertical-align: middle;
+	padding: 8% 2% 2% 2%;
+	height: 350px;
+	border: 1px solid #CBD1D6;
+	overflow: hidden;
+}
+.cardBack, .cardFront{
+	margin: auto;
+}
+.cardBack{
+	display:none;
+}
+.carousel-frame {
+	padding: 5% 3%;
+	word-wrap: break-work;
+}
+.carousel-fram li{
+	word-wrap: break-word;
+}
+
+
+
