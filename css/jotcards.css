@@ -66,6 +66,12 @@ padding: 5px;
 .carousel-fram li{
 	word-wrap: break-word;
 }
+.cardContent{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	word-wrap: break-word;
+}
 
 
 

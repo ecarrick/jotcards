@@ -159,8 +159,10 @@
 					<ul id="setContainer" class="text-center">
 								<% _.each(cards, function(card) { %>
 									<li>
+										<div class="cardContent">
 										<h2 class="cardFront"><%= card.left%></h2>
 										<h2 class="cardBack"><%= card.right%></h2>
+										</div>
 									</li>
 								<% }); %>
 					
