@@ -97,15 +97,15 @@ jc.showCreatePage = function(){
 		e.preventDefault();
 		var cardSet = {};
 		
-		cardSet.name	= $("#setName").val();
-		cardSet.desc  	= $("#setDesc").val();
+		cardSet.name	= $.text($("#setName").val());
+		cardSet.desc  	= $.text($("#setDesc").val());
 		cardSet.cards  	= '';
 		var cards = [];
 		$("#card_list").children().each( function( key, card ){
 //			console.log( $(" .left ", this).val() + " : " + $(" .right ", this).val());
 				var card = {};
-				card.left   = $(" .left ", this).val();
-				card.right = $(" .right ", this).val();
+				card.left   = $.text($(" .left ", this).val());
+				card.right = $.text($(" .right ", this).val());
 				cards.push(card);
 			
 			
