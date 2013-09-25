@@ -12,8 +12,6 @@ jc.escape =  function escapeHtml(unsafe) {
          .replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
  };
 
 
@@ -108,15 +106,15 @@ jc.showCreatePage = function(){
 		e.preventDefault();
 		var cardSet = {};
 		
-		cardSet.name	= jc.escape($("#setName").text());
-		cardSet.desc  	= jc.escape($("#setDesc").text());
+		cardSet.name	= jc.escape($("#setName").val());
+		cardSet.desc  	= jc.escape($("#setDesc").val());
 		cardSet.cards  	= '';
 		var cards = [];
 		$("#card_list").children().each( function( key, card ){
 //			console.log( $(" .left ", this).val() + " : " + $(" .right ", this).val());
 				var card = {};
-				card.left   = jc.escape($(" .left ", this).text());
-				card.right = jc.escape($(" .right ", this).text());
+				card.left   = jc.escape($(" .left ", this).val());
+				card.right = jc.escape($(" .right ", this).val());
 				cards.push(card);
 			
 			
@@ -153,7 +151,15 @@ jc.showSetPage = function(setid){
                 next: $('#NavRight'),
                 prev: $('#NavLeft')
             });
-			
+	
+	$("#NavRight").on('click', function(e){
+		jc.showCard(jc.otherSide);
+	});
+	
+	$("#NavLeft").on('click', function(e){
+		jc.showCard(jc.otherSide);
+	});
+	
 	$("#cancelSet").on('click', function(e){
 		e.preventDefault();
 		
