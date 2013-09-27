@@ -24,6 +24,7 @@ jc.init = function(ready){
 		console.log(jc.formid);
 		jc.showMainPage();
 		jc.removeE(".loginButton");
+		jc.removeE("footer");
 	}
 
 
@@ -35,14 +36,38 @@ jc.removeE = function(e){
 		$e.remove();
 };
 
+jc.showCredits = function(){
+	var credits = _.template( $("#thanks").html() );
+	
+	$('#thanksBtn h4').text('back')
+	
+	jc.$main.html(
+		credits
+	);
+	
+	$('#thanksBtn').on("click", function(e){
+		e.preventDefault();
+		$('#thanksBtn h4').text('Credits')
+		jc.showHomePage('homePage');
+	});
+
+};
+
 jc.showHomePage = function(homeid){
 	console.log("showHomePage");
 	var container = "#"+homeid;
+	$('#thanksBtn').off();
+	$("#thanksBtn").on('click', function(e){
+		e.preventDefault();
+		jc.showCredits();
+	
+	});
 	
 	var rendered = _.template($(container).html());
 	jc.$main.html(
 		rendered
 	);
+	
 
 };
 

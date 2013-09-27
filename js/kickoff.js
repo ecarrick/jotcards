@@ -3,6 +3,7 @@
 $(function(){
 	jc.showHomePage('homePage');
 
+
 	JF.initialize({
 			accessType: "full",
 			
